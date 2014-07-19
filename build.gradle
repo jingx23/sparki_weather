@@ -1,0 +1,26 @@
+apply plugin: 'java'
+apply plugin: 'application'
+
+mainClassName = 'WeatherApp'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'org.slf4j:slf4j-api:1.7.5'
+    // use latest 2.x series
+    compile group: 'com.sparkjava', name: 'spark-core', version: '2.+'
+}
+
+jar {
+    //from files(sourceSets.main.output.classesDir)
+    from(configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }) {
+        // remove all signature files
+        exclude "META-INF/*"
+        exclude "**/pom*"
+    }
+    manifest {
+        attributes 'Main-Class': mainClassName
+    }
+}
