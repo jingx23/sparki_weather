@@ -23,8 +23,7 @@ void dht22_wrapper() {
 }
 void loop()
 {
-    sprintf(weatherData,"Hello");
-	//delay(100);
+	delay(100);
 	DHT22.acquire();
 	while (DHT22.acquiring())
 		;
